@@ -4,16 +4,16 @@
 
 ## 🗂️ Assignments Overview
 
-| **Program**                  | **Description**                                                                               |
-|------------------------------|-----------------------------------------------------------------------------------------------|
-| **Program 1: Binary Search** |                       |
-| **Program 2: Merge Sort**    |                    |
-| **Program 3: Heap Sort**     |   |
-| **Program 4: Binary Search Tree** |   |
-| **Program 5: Breadth First Search** |                          |
-| **Program 6: Dijkstra's Algorithm** |      |
-| **Program 7: Prim's Algorithm** |                  |
-| **Program 8: Longest Common Substring** |                            |
+| **Program**                  | **Description**                                                                                           |
+|------------------------------|-----------------------------------------------------------------------------------------------------------|
+| **Program 1: Binary Search** | Use binary search to find query numbers in a sorted array, returning their indices or "Not Found" |
+| **Program 2: Merge Sort**    | Implement merge sort to sort list of integers and print the sorted output along with the total count.|
+| **Program 3: Heap Sort**     | Implement heap sort to sort numbers, comparing its runtime with merge sort for one million and ten million numbers. |
+| **Program 4: Binary Search Tree** | Implement a binary search tree to insert and delete integers, then print the remaining tree contents and their depths|
+| **Program 5: Breadth First Search** | Implement BFS on a directed graph to determine the number of edges between a specified start and end vertex |
+| **Program 6: Dijkstra's Algorithm** | Implement Dijkstra's Algorithm to find the shortest path and distance between two vertices in a direct graph using a priority queue |
+| **Program 7: Prim's Algorithm** | Implement Prim's Algorithm to calculate the cost of a minimum spanning tree from an undefined graph based on given input files.|
+| **Program 8: Longest Common Substring** ||
 
 ---
 
