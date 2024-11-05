@@ -96,6 +96,43 @@ int primMST (int V, vector<vector<pair<int, int>>>& adj)
 
     int totalCost = 0; // initalize total cost of the MST to zero
 
+    minHeap.push(0, 0); // start from the first vertex (vertex 0)
+
+    while(!minHeap.isEmpty())
+    {
+        pair<int, int> minNode = minHeap.extractMin(); // extract the vertex with the smallest distance
+        int u = minNode.second: // get the vertex number
+
+        if (inMST[u]) // if the vertiex is already in the MST, skip it
+        {
+            continue;
+        }
+
+        inMST[u] = true; // mark the vertex as included in the MST
+        totalCost += minNode.first; // add the distance to the total cost
+
+        for (int i = 0; i < adj[u].size(); i++)
+        {
+            pair<int, int> neighbor = adj[u][i];
+            int v = neighbor.first;
+            int weight = neighbor.second;
+
+            // if the adjacent vertex is not in the MST and the weight of edge is less than the current key
+            if (!inMST[v]) 
+            {
+                int currentWeight = INT_MAX;
+                if (minHeap.pos[v] > minHeap.size)
+                {
+                    currentWeight = minHeap.heap[minHeap.pos[v]].first;
+                }
+                if (weight < currentWeight)
+                {
+                    // update the key (distance) of the adjacent vertex
+                    minHeap.decreaseKey(v, weight);
+                }
+            }
+        }
+    }
     
     return 0;
 }
