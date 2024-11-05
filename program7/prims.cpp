@@ -90,6 +90,13 @@ class MinHeap
 
 int primMST (int V, vector<vector<pair<int, int>>>& adj)
 {
+    MinHeap minHeap(V); // initialize the MinHeap
+
+    vector<bool> inMST(V, false); // use boolean array to track which vertices are inclueded in the MST
+
+    int totalCost = 0; // initalize total cost of the MST to zero
+
+    
     return 0;
 }
 
