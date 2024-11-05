@@ -88,6 +88,11 @@ class MinHeap
         }
 };
 
+int primMST (int V, vector<vector<pair<int, int>>>& adj)
+{
+    return 0;
+}
+
 int main(int argc, char *argv[])
 {
     if (argc > 1)
