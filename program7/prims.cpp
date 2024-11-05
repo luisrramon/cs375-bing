@@ -53,10 +53,23 @@ class MinHeap
             minHeapify(0);
             return root;
         }
+
         // check if the heap is empty
         bool isEmpty()
         {
             return size == 0;
+        }
+
+        // get the position of a vertex in the heap
+        int getPos(int v)
+        {
+            return pos[v];
+        }
+
+        // get the size of the heap
+        int getSize()
+        {
+            return size;
         }
     private:
         vector<pair<int, int> > heap; // vector to store the heap elements
@@ -121,7 +134,7 @@ int primMST (int V, vector<vector<pair<int, int>>>& adj)
             if (!inMST[v]) 
             {
                 int currentWeight = INT_MAX;
-                if (minHeap.pos[v] > minHeap.size)
+                if (minHeap.getPos(v) > minHeap.getSize())
                 {
                     currentWeight = minHeap.heap[minHeap.pos[v]].first;
                 }
@@ -133,7 +146,7 @@ int primMST (int V, vector<vector<pair<int, int>>>& adj)
             }
         }
     }
-    
+
     return 0;
 }
 
