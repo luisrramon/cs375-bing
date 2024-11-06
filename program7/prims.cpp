@@ -72,6 +72,13 @@ class MinHeap
         {
             return size;
         }
+
+        // get the heap element at a given poistion
+        pair<int, int> getHeapElement(int i)
+        {
+            return heap[i];
+        }
+
     private:
         vector<pair<int, int> > heap; // vector to store the heap elements
         vector<int> pos; // vector to store the positions of the vertices in the heap
@@ -137,7 +144,7 @@ int primMST (int V, vector<vector<pair<int, int>>>& adj)
                 int currentWeight = INT_MAX;
                 if (minHeap.getPos(v) > minHeap.getSize())
                 {
-                    currentWeight = minHeap.heap[minHeap.pos[v]].first;
+                    currentWeight = minHeap.getHeapElement(minHeap.getPos(v)).first;
                 }
                 if (weight < currentWeight)
                 {
@@ -148,7 +155,7 @@ int primMST (int V, vector<vector<pair<int, int>>>& adj)
         }
     }
 
-    return 0;
+    return totalCost; // return the total cost of the MST
 }
 
 int main(int argc, char *argv[])
