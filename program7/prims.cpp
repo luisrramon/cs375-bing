@@ -11,10 +11,13 @@ class MinHeap
 {
     public:
         // constructor to initialize the heap with a given capacity
-        MinHeap (int capacity) : size(0)
+        MinHeap (int capacity)
         {
+            this->capacity = capacity;
+            size = 0;
             heap.resize(capacity);
             pos.resize(capacity);
+            key.resize(capacity, INT_MAX);
         }
         // push a new vertex with its distance into the heap
         void push(int v, int dist)
@@ -45,16 +48,15 @@ class MinHeap
             {
                 return make_pair(INT_MAX, -1);
             }
-            if (size == 1)
-            {
-                size--;
-                return heap[0];
-            }
             pair<int, int> root = heap[0];
-            heap[0] = heap[size - 1];
-            pos[heap[0].second] = 0;
+
+            if (size > 1)
+            {
+                heap[0] = heap[size - 1];
+                pos[heap[0].second] = 0;
+                minHeapify(0);
+            }
             size--;
-            minHeapify(0);
             return root;
         }
 
@@ -64,28 +66,17 @@ class MinHeap
             return size == 0;
         }
 
-        // get the position of a vertex in the heap
-        int getPos(int v)
+        bool isInMinHeap(int v)
         {
-            return pos[v];
-        }
-
-        // get the size of the heap
-        int getSize()
-        {
-            return size;
-        }
-
-        // get the heap element at a given poistion
-        pair<int, int> getHeapElement(int i)
-        {
-            return heap[i];
+            return pos[v] < size;
         }
 
     private:
         vector<pair<int, int> > heap; // vector to store the heap elements
         vector<int> pos; // vector to store the positions of the vertices in the heap
+        vector<int> key;
         int size; // current size of the heap
+        int capacity;
 
         // maintain the min-heap property
         void minHeapify(int idx)
@@ -104,60 +95,49 @@ class MinHeap
             }
             if (smallest != idx)
             {
-                swap(heap[idx], heap[smallest]);
-                pos[heap[idx].second] = idx;
-                pos[heap[smallest].second] = smallest;
+                pos[heap[smallest].second] = idx;
+                pos[heap[idx].second] = smallest;
+                swap(heap[smallest], heap[idx]);
                 minHeapify(smallest);
             }
+        }
+        void swap(pair<int, int> &x, pair<int, int> &y)
+        {
+            pair<int, int> temp = x;
+            x = y;
+            y = temp;
         }
 };
 
 int primMST (int V, const vector<vector<pair<int, int> > >& adj)
 {
     MinHeap minHeap(V); // initialize the MinHeap
-
+    vector<int> key(V, INT_MAX);
     vector<bool> inMST(V, false); // use boolean array to track which vertices are inclueded in the MST
-
     int totalCost = 0; // initalize total cost of the MST to zero
 
     minHeap.push(0, 0); // start from the first vertex (vertex 0)
+    key[0] = 0;
 
     while(!minHeap.isEmpty())
     {
-        pair<int, int> minNode = minHeap.extractMin(); // extract the vertex with the smallest distance
-        int u = minNode.second; // get the vertex number
-
-        if (inMST[u]) // if the vertiex is already in the MST, skip it
+        int u = minHeap.extractMin().second;
+        if (inMST[u])
         {
             continue;
         }
-
         inMST[u] = true; // mark the vertex as included in the MST
-        totalCost += minNode.first; // add the distance to the total cost
-
-        cout << "Included vertex: " << u << " with cost: " << minNode.first << endl;
-
-        for (auto &neighbor : adj[u])
+        totalCost += key[u]; // add the distance to the total cost
+        
+        for (auto& edge : adj[u])
         {
-            int v = neighbor.first;
-            int weight = neighbor.second;
-            
-            cout << "Processing neighbor: " << v << " with weight: " << weight << endl;
-            if (!inMST[v])
+            int v = edge.first;
+            int weight = edge.second;
+            if (!inMST[v] && key[v] > weight)
             {
-                int currentWeight = INT_MAX;
-                if (minHeap.getPos(v) < minHeap.getSize())
-                {
-                    currentWeight = minHeap.getHeapElement(minHeap.getPos(v)).first;
-                }
-                cout << "Current weight of vertex: " << v << " is " << currentWeight << endl;
-                if (weight < currentWeight)
-                {
-                    minHeap.decreaseKey(v, weight);
-                    cout << "Updated vertex: " << v << " with new weight: " << weight << endl;
-                }
+                key[v] = weight;
+                minHeap.decreaseKey(v, key[v]);
             }
-            
         }
     }
 
@@ -176,7 +156,7 @@ int main(int argc, char *argv[])
     cin >> V >> E; // read the numbers of vertices & edges
 
     vector<vector<pair<int, int> > > adj(V);
-    
+
     for (int i = 0; i < E; i++)
     {
         int u; // start vertex
