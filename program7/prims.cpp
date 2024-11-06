@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <climits>
 
 using namespace std;
 
@@ -114,7 +115,7 @@ int primMST (int V, vector<vector<pair<int, int>>>& adj)
     while(!minHeap.isEmpty())
     {
         pair<int, int> minNode = minHeap.extractMin(); // extract the vertex with the smallest distance
-        int u = minNode.second: // get the vertex number
+        int u = minNode.second; // get the vertex number
 
         if (inMST[u]) // if the vertiex is already in the MST, skip it
         {
