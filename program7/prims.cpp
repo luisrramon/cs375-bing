@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
 #include <climits>
+#include <algorithm>
+#include <utility>
 
 using namespace std;
 
@@ -17,7 +19,7 @@ class MinHeap
         // push a new vertex with its distance into the heap
         void push(int v, int dist)
         {
-            heap[size] = {dist, v};
+            heap[size] = make_pair(dist, v);
             pos[v] = size;
             size++;
             decreaseKey(v, dist);
@@ -34,13 +36,14 @@ class MinHeap
                 pos[heap[(i - 1) / 2].second] = (i - 1) / 2;
                 i = (i - 1) / 2;
             }
+            cout << "Decreased key of vertex: " << v << " to new distance: " << dist << endl;
         }
         // extract the minimum element (vertex with the smallest distance) from the heap
         pair<int, int> extractMin()
         {
             if (size == 0)
             {
-                return {INT_MAX, -1};
+                return make_pair(INT_MAX, -1);
             }
             if (size == 1)
             {
@@ -109,7 +112,7 @@ class MinHeap
         }
 };
 
-int primMST (int V, vector<vector<pair<int, int>>>& adj)
+int primMST (int V, const vector<vector<pair<int, int> > >& adj)
 {
     MinHeap minHeap(V); // initialize the MinHeap
 
@@ -132,26 +135,29 @@ int primMST (int V, vector<vector<pair<int, int>>>& adj)
         inMST[u] = true; // mark the vertex as included in the MST
         totalCost += minNode.first; // add the distance to the total cost
 
-        for (int i = 0; i < adj[u].size(); i++)
+        cout << "Included vertex: " << u << " with cost: " << minNode.first << endl;
+
+        for (auto &neighbor : adj[u])
         {
-            pair<int, int> neighbor = adj[u][i];
             int v = neighbor.first;
             int weight = neighbor.second;
-
-            // if the adjacent vertex is not in the MST and the weight of edge is less than the current key
-            if (!inMST[v]) 
+            
+            cout << "Processing neighbor: " << v << " with weight: " << weight << endl;
+            if (!inMST[v])
             {
                 int currentWeight = INT_MAX;
-                if (minHeap.getPos(v) > minHeap.getSize())
+                if (minHeap.getPos(v) < minHeap.getSize())
                 {
                     currentWeight = minHeap.getHeapElement(minHeap.getPos(v)).first;
                 }
+                cout << "Current weight of vertex: " << v << " is " << currentWeight << endl;
                 if (weight < currentWeight)
                 {
-                    // update the key (distance) of the adjacent vertex
                     minHeap.decreaseKey(v, weight);
+                    cout << "Updated vertex: " << v << " with new weight: " << weight << endl;
                 }
             }
+            
         }
     }
 
@@ -169,7 +175,8 @@ int main(int argc, char *argv[])
 
     cin >> V >> E; // read the numbers of vertices & edges
 
-    vector<vector<pair<int, int>>> adj(V);
+    vector<vector<pair<int, int> > > adj(V);
+    
     for (int i = 0; i < E; i++)
     {
         int u; // start vertex
@@ -177,7 +184,24 @@ int main(int argc, char *argv[])
         int l; // length of edge
         cin >> u >> v >> l;
         adj[u].emplace_back(v, l);
+        adj[v].emplace_back(u, l);
+    }
+
+    // debug print to verify adjacency list
+    cout << "AL:" << endl;
+    for (int i = 0; i < V; i++)
+    {
+        cout << i << ": ";
+        for (auto &neighbor : adj[i])
+        {
+            cout << "(" << neighbor.first << ", " << neighbor.second <<  ")";
+        }
+        cout << endl;
     }
     
+    int totalCost = primMST(V, adj); // calculate the total cost of the MST
+
+    cout << totalCost << endl;
+
     return 0;
 }
