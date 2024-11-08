@@ -134,7 +134,7 @@ int primMST (vector<vector<pair<int, int>>> &adj, int V)
             if (!inMST[v] && key[v] > weight)
             {
                 key[v] = weight;
-                minHeap.decreaseKey(v, key[v]);
+                minHeap.insert(v, key[v]);
             }
         }
     }
