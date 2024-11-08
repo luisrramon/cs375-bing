@@ -13,7 +13,7 @@
 | **Program 5: Breadth First Search** | Implement BFS on a directed graph to determine the number of edges between a specified start and end vertex |
 | **Program 6: Dijkstra's Algorithm** | Implement Dijkstra's Algorithm to find the shortest path and distance between two vertices in a direct graph using a priority queue |
 | **Program 7: Prim's Algorithm** | Implement Prim's Algorithm to calculate the cost of a minimum spanning tree from an undefined graph based on given input files.|
-| **Program 8: Longest Common Substring** ||
+| **Program 8: Longest Common Substring** | Determine the length of a longest common subsequence and print out the length, followed by the letters in the common subsequence.|
 
 ---
 
