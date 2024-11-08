@@ -11,22 +11,22 @@ class MinHeap
     vector<int> pos; // vector to store the positions of the vertices in the heap
     int size; // current size of the heap
 
-    int parent(int i)
+    int parent(int i) // returns the parent of a given index
     {
         return (i - 1) / 2;
     }
 
-    int leftChild(int i)
+    int leftChild(int i) // returns the left child of a given index
     {
         return 2 * i + 1;
     }
 
-    int rightChild(int i)
+    int rightChild(int i) // returns the right child of a given index
     {
         return 2 * i + 2;
     }
 
-    void swap(int i, int j)
+    void swap(int i, int j) 
     {
         pos[heap[i].second] = j;
         pos[heap[j].second] = i;
@@ -61,7 +61,7 @@ class MinHeap
             heap.resize(capacity);
             pos.resize(capacity);
         }
-        // push a new vertex with its distance into the heap
+        // insert a new vertex with its distance into the heap
         void insert(int v, int dist)
         {
             heap[size] = {dist, v};
@@ -108,12 +108,12 @@ class MinHeap
 
 int primMST (vector<vector<pair<int, int>>> &adj, int V)
 {
-    vector<int> key(V, INT_MAX);
+    vector<int> key(V, INT_MAX); // use vector to store the distances of the vertices
     vector<bool> inMST(V, false); // use boolean array to track which vertices are inclueded in the MST
     MinHeap minHeap(V); // initialize the MinHeap
     int totalCost = 0; // initalize total cost of the MST to zero
 
-    key[0] = 0;
+    key[0] = 0; // set the distance of the first vertex to zero
     minHeap.insert(0, 0); // start from the first vertex (vertex 0)
     
 
@@ -144,7 +144,8 @@ int primMST (vector<vector<pair<int, int>>> &adj, int V)
 
 int main(int argc, char *argv[])
 {
-    int V, E; // number of vertices and edges
+    int V; // number of vertices
+    int E; // number of edges
 
     cin >> V >> E; // read the numbers of vertices & edges
 
@@ -152,7 +153,9 @@ int main(int argc, char *argv[])
 
     for (int i = 0; i < E; i++)
     {
-        int u, v, w; // start vertex, end vertex, length of edge
+        int u; // start vertex
+        int v; // end vertex
+        int w; // length of edge
         cin >> u >> v >> w;
         adj[u].emplace_back(v, w);
         adj[v].emplace_back(u, w);
