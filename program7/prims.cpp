@@ -1,3 +1,4 @@
+// Luis Ramon
 #include <iostream>
 #include <vector>
 #include <climits>
@@ -109,7 +110,7 @@ class MinHeap
 int primMST (vector<vector<pair<int, int>>> &adj, int V)
 {
     vector<int> key(V, INT_MAX); // use vector to store the distances of the vertices
-    vector<bool> inMST(V, false); // use boolean array to track which vertices are inclueded in the MST
+    vector<bool> inMST(V, false); // use boolean array to track which vertices are included in the MST
     MinHeap minHeap(V); // initialize the MinHeap
     int totalCost = 0; // initalize total cost of the MST to zero
 
