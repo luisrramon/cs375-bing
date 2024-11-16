@@ -36,7 +36,7 @@ string longestCommonSubsequence(const string& s1, const string& s2)
     // trace back through the DP table to find the LCS
     while (i > 0 && j > 0)
     {
-        if (s1[i - 1] == s2[j - 1]) // add character to LCS
+        if (s1[i - 1] == s2[j - 1]) // characters match
         {
             lcs = s1[i - 1] + lcs; // add character to LCS
             --i;
