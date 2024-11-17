@@ -14,6 +14,7 @@
 | **Program 6: Dijkstra's Algorithm** | Implement Dijkstra's Algorithm to find the shortest path and distance between two vertices in a direct graph using a priority queue |
 | **Program 7: Prim's Algorithm** | Implement Prim's Algorithm to calculate the cost of a minimum spanning tree from an undefined graph based on given input files.|
 | **Program 8: Longest Common Substring** | Determine the length of a longest common subsequence and print out the length, followed by the letters in the common subsequence.|
+| **Program 9: 0-1 Integer Knapsack**| Find the maximum value you can store in the knapsack, and list the items you chose to include.|
 
 ---
 
@@ -27,6 +28,7 @@
 - **program6**: Dijkstra's Algorithm
 - **program7**: Prim's Algorithm
 - **program8**: Longest Common Substring
+- **program9**: 0-1 Integer Knapsack
 
 ---
 
